@@ -12,6 +12,7 @@ apollo {
     service("service") {
 
         packageName.set("com.example")
+        generateOptionalOperationVariables.set(false)
 
     }
 

@@ -9,6 +9,7 @@ import com.example.rickandmortygraphqlapi.domain.SimpleCharacter
 
 fun CharacterDetailsQuery.Character.toDetailsCharacter():DetailsCharacter{
     return DetailsCharacter(
+        id=id,
         name=name,
         image=image,
         gender = gender,
@@ -22,6 +23,7 @@ fun CharacterDetailsQuery.Character.toDetailsCharacter():DetailsCharacter{
 
 fun CharactersQuery.Result.toSimpleCharacter():SimpleCharacter{
     return SimpleCharacter(
+        id=id,
         name=name,
         status = status,
         image = image

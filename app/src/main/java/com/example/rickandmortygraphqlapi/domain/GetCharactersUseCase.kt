@@ -1,11 +1,11 @@
 package com.example.rickandmortygraphqlapi.domain
-import com.apollographql.apollo3.api.Optional
 
-class GetCharacterUseCase(
+
+class GetCharactersUseCase(
     private val characterClient: CharacterClient
 ) {
 
-    suspend fun execute(page:Optional<Int>): CharactersResults {
+    suspend fun execute(page:Int): CharactersResults {
         return characterClient.getCharacters(page)
     }
 

@@ -11,20 +11,17 @@ import com.example.rickandmortygraphqlapi.domain.Info
 
 
 class ApolloCharacterClient(private val apolloClient: ApolloClient) : CharacterClient {
-    override suspend fun getCharacters(page: Optional<Int?>): CharactersResults {
+    override suspend fun getCharacters(page:Int): CharactersResults {
+        val present:Optional.Present<Int>
         return apolloClient.query(CharactersQuery(page = page))
             .execute().data?.characters?.toCharacterResult() ?: CharactersResults(
-            info = Info(
-                0,
-                0,
-                0
-            ), results = emptyList()
+            info = Info(), results = emptyList()
         )
     }
 
     override suspend fun getDetailsCharacter(id: String): DetailsCharacter {
         return apolloClient.query(CharacterDetailsQuery(id = id))
             .execute().data?.character?.toDetailsCharacter()
-            ?: DetailsCharacter("", "", "", "", "", "", "", "")
+            ?: DetailsCharacter()
     }
 }

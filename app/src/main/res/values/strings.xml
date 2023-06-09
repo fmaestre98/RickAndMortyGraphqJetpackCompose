@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">RickAndMortyGraphQLApi</string>
+    <string name="image_description">Character Image</string>
+    <string name="loading">Loading....</string>
+    <string name="loading_failed">Internet Error</string>
+    <string name="retry">Retry</string>
 </resources>

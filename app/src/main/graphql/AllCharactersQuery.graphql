@@ -4,6 +4,7 @@ query CharactersQuery($page: Int) {
             pages, count, next
         }
         results {
+            id
             name
             status
             image
