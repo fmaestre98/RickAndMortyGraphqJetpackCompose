@@ -36,6 +36,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.rickandmortygraphqlapi.presentation.CharacterViewModel
 import com.example.rickandmortygraphqlapi.presentation.CharactersScreen
 import com.example.rickandmortygraphqlapi.ui.theme.RickAndMortyGraphQLApiTheme
@@ -50,6 +51,7 @@ class MainActivity : ComponentActivity() {
             RickAndMortyGraphQLApiTheme {
                 val viewModel = hiltViewModel<CharacterViewModel>()
                 val state by viewModel.state.collectAsState()
+                val charactersFlow=viewModel.characterPagerFlow.collectAsLazyPagingItems()
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -63,9 +65,10 @@ class MainActivity : ComponentActivity() {
                         }
                     ) { innerPadding ->
                         CharactersScreen(
+                            characters = charactersFlow,
                             state = state,
                             onSelectedCharacter = viewModel::selectCharacter,
-                            retryAction = viewModel::getData,
+                            retryAction = {},
                             modifier = Modifier.padding(innerPadding)
                         )
                     }

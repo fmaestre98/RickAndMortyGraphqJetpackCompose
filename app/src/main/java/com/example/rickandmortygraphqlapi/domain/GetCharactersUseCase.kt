@@ -5,7 +5,7 @@ class GetCharactersUseCase(
     private val characterClient: CharacterClient
 ) {
 
-    suspend fun execute(page:Int): CharactersResults {
+    suspend fun execute(page:Int): CharactersResults? {
         return characterClient.getCharacters(page)
     }
 

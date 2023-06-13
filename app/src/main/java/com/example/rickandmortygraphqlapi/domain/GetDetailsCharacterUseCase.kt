@@ -5,7 +5,7 @@ class GetDetailsCharacterUseCase(
     private val characterClient: CharacterClient
 ) {
 
-    suspend fun execute(id: String): DetailsCharacter {
+    suspend fun execute(id: String): DetailsCharacter? {
         return characterClient.getDetailsCharacter(id)
     }
 

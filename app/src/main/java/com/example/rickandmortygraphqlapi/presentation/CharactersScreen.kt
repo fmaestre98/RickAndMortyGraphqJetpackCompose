@@ -1,5 +1,6 @@
 package com.example.rickandmortygraphqlapi.presentation
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -19,9 +20,11 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,6 +33,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.paging.LoadState
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.items
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.rickandmortygraphqlapi.R
@@ -37,13 +43,54 @@ import com.example.rickandmortygraphqlapi.domain.SimpleCharacter
 
 @Composable
 fun CharactersScreen(
+    characters: LazyPagingItems<SimpleCharacter>,
     state: CharacterViewModel.CharactersState,
     onSelectedCharacter: (id: String) -> Unit,
     retryAction: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-
+    val context = LocalContext.current
+    LaunchedEffect(key1 = characters.loadState) {
+        if (characters.loadState.refresh is LoadState.Error) {
+            Toast.makeText(
+                context,
+                "Error: " + (characters.loadState.refresh as LoadState.Error).error.message,
+                Toast.LENGTH_LONG
+            )
+        }
+    }
     Box(modifier = modifier.fillMaxSize()) {
+        if (characters.loadState.refresh is LoadState.Loading) {
+            LoadingScreen()
+        }else if (state.selectedCharacter != null) {
+            CharacterDetails(detailsCharacter = state.selectedCharacter)
+        } else {
+            LazyColumn(modifier = Modifier.fillMaxSize()) {
+                items(characters) { character ->
+                   if (character!=null){
+                       CharacterItem(
+                           simpleCharacter = character,
+                           modifier = Modifier
+                               .fillMaxWidth()
+                               .padding(16.dp)
+                               .clickable { onSelectedCharacter(character?.id!!) }
+                       )
+                   }
+
+                }
+                item {
+                    if (characters.loadState.append is LoadState.Loading){
+                        Row(modifier= Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+                            CircularProgressIndicator(modifier = Modifier)
+                        }
+
+                    }
+                }
+            }
+        }
+
+    }
+    /*Box(modifier = modifier.fillMaxSize()) {
         if (state.isLoading) {
             LoadingScreen()
         } else if (state.error) {
@@ -64,7 +111,7 @@ fun CharactersScreen(
             }
         }
 
-    }
+    }*/
 
 }
 
