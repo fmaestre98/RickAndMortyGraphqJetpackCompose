@@ -7,6 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,6 +15,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -81,24 +83,24 @@ class MainActivity : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun topAppBar(showArrow: Boolean = false, onBackPressed: () -> Unit = {}) {
-    TopAppBar(
+    CenterAlignedTopAppBar(
         colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = MaterialTheme.colorScheme.primary),
         title = {
-            Text(
-                modifier = Modifier.padding(start = 90.dp),
-                text = "Rick and Morty",
-                fontWeight = FontWeight.Bold,
-                fontSize = 20.sp
-            )
+              Text(
+                  text = "Rick and Morty",
+                  fontWeight = FontWeight.Bold,
+                  fontSize = 20.sp
+              )
+
         },
         navigationIcon = {
             IconButton(onClick = {
-                onBackPressed()
-            }) {
-                if (showArrow) {
-                    Icon(Icons.Default.ArrowBack, contentDescription = "Arrow Back")
-
+                if(showArrow){
+                    onBackPressed()
                 }
+            }) {
+                   Icon(Icons.Default.ArrowBack, contentDescription = "Arrow Back",tint = if (showArrow)Color.Black else Color.Transparent)
+
             }
         })
 }

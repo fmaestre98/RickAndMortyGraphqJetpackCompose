@@ -41,7 +41,6 @@ class CharacterRemoteMediator(
                 }
             }
             var characters:CharactersResults?=null;
-            try {
                 characters=characterClient.getCharacters(loadKey)
                 characterDatabase.withTransaction {
                     if (loadType==LoadType.REFRESH){
@@ -53,15 +52,15 @@ class CharacterRemoteMediator(
                     }
                 }
 
-            }catch (e:Exception){
-            MediatorResult.Error(e)
-            }
+
             MediatorResult.Success(endOfPaginationReached = characters?.results?.isEmpty() ?: false)
 
 
         } catch (e: IOException) {
             MediatorResult.Error(e)
         } catch (e: HttpException) {
+            MediatorResult.Error(e)
+        }catch (e:Exception){
             MediatorResult.Error(e)
         }
 
