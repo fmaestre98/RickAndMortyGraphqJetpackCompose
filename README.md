@@ -1,7 +1,7 @@
-# RickAndMortyGraphqJetpackCompose
+# Rick And Morty GraphQL JetpackCompose
 <img src="app/src/main/res/drawable/screenshot_rickandmortygraphqlapi.jpg" alt="Descripción de la imagen" width="200" height="400">
 
-Android App, Jetpack Compose, Apollo Graphql, Rick and Morty API, Clean Code
+Android App, Jetpack Compose, Apollo GraphQL, Rick and Morty API, Clean Code
 
 ## Installation
 
