@@ -21,11 +21,11 @@ import com.example.rickandmortygraphqlapi.domain.DetailsCharacter
 
 @Composable
 fun CharacterDetails(modifier: Modifier= Modifier,detailsCharacter: DetailsCharacter) {
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = modifier.padding(10.dp)) {
         AsyncImage(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(450.dp)
+                .height(400.dp)
                 .aspectRatio(1f),
             model = ImageRequest.Builder(context = LocalContext.current)
                 .data(detailsCharacter?.image)
@@ -41,8 +41,6 @@ fun CharacterDetails(modifier: Modifier= Modifier,detailsCharacter: DetailsChara
             Text(text = "Name: "+detailsCharacter.name)
             Spacer(modifier = Modifier.height(16.dp))
             Text(text = "Status: "+detailsCharacter.status)
-            Spacer(modifier = Modifier.height(16.dp))
-            Text(text = "Type: "+detailsCharacter.type)
             Spacer(modifier = Modifier.height(16.dp))
             Text(text = "Gender: "+detailsCharacter.gender)
             Spacer(modifier = Modifier.height(16.dp))

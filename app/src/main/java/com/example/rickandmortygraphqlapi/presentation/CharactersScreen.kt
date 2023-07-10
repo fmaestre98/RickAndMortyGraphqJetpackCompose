@@ -65,13 +65,13 @@ fun CharactersScreen(
         }else if (state.selectedCharacter != null) {
             CharacterDetails(detailsCharacter = state.selectedCharacter)
         } else {
-            LazyColumn(modifier = Modifier.fillMaxSize().padding(16.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
+            LazyColumn(modifier = Modifier.fillMaxSize().padding(top = 5.dp, start = 14.dp, end = 14.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
                 items(characters) { character ->
                    if (character!=null){
                        CharacterItem(
                            simpleCharacter = character,
                            modifier = Modifier
-                               .padding(16.dp)
+                               .padding(8.dp)
                                .fillMaxWidth()
                                .clickable { onSelectedCharacter(character?.id!!) }
                        )
@@ -146,6 +146,7 @@ fun ErrorScreen(retryAction: () -> Unit, modifier: Modifier = Modifier) {
 @Composable
 private fun CharacterItem(modifier: Modifier = Modifier, simpleCharacter: SimpleCharacter?) {
     Card(
+        modifier=modifier,
         shape = RoundedCornerShape(22.dp),
         elevation = CardDefaults.cardElevation(8.dp)
     ) {
